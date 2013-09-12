@@ -1,0 +1,27 @@
+settings = {
+
+   orientation = {
+
+      default = "portrait",
+--      default = "landscapeRight",
+      
+      supported = {
+
+         "portrait", "portraitUpsideDown",
+--         "landscapeRight", "landscapeLeft",
+
+      },
+
+   },
+
+   iphone = {
+      plist = {
+         UIAppFonts = { "Harrowprint.ttf", "Comic Book Commando.ttf", "Chuck Chillout.ttf" },
+         UIStatusBarHidden=true,
+      },
+   },
+
+   androidPermissions = {
+      "android.permission.INTERNET",
+   },
+}
