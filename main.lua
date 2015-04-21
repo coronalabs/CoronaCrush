@@ -31,6 +31,8 @@ local h = display.contentHeight
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 
+local shaderEffect = 0 -- 0 for no shader; 1..8 for various effects (see code below)
+
 local gameFont = "Comic Book Commando"
 
 local maxImageNum = 4 -- Adjust up to 7 to get between 1 and 7 random images (per set)
@@ -144,35 +146,35 @@ function create( )
 	local tmp = display.newRoundedRect( layers.interface, 0, 0, 300, 50, 6 )
 	tmp.x = centerX
 	tmp.y = 37
-	tmp:setFillColor( 254,191, 199 )
+	tmp:setFillColor( 254/255, 191/255, 199/255 )
 	tmp.strokeWidth = 3
-	tmp:setStrokeColor( 243,95, 179 )
+	tmp:setStrokeColor( 243/255, 95/255, 179/255 )
 
 	-- Score Label	
 	scoreLabel = display.newText( layers.interface, "SCORE:", 0, 0, gameFont, 42 )
 	scoreLabel.x = centerX - scoreLabel.contentWidth/2 + 10
 	scoreLabel.y = 36
-	scoreLabel:setTextColor(51,16,95)
+	scoreLabel:setFillColor( 51/255, 16/255, 95/255 )
 
 	-- Score HUD
 	scoreHUD = display.newText( layers.interface, 0, 0, 0, gameFont, 42 )
 	scoreHUD.x = scoreLabel.x + scoreLabel.contentWidth/2 + scoreHUD.contentWidth/2 + 10
 	scoreHUD.y = scoreLabel.y
-	scoreHUD:setTextColor(51,16,95)
+	scoreHUD:setFillColor( 51/255, 16/255 , 95/255 )
 	
 	-- Game Title Background
 	local tmp = display.newRoundedRect( layers.interface, 0, 0, 200, 30, 6 )
 	tmp.x = centerX
 	tmp.y = h - 30
-	tmp:setFillColor( 254,191, 199 )
+	tmp:setFillColor( 254/255, 191/255, 199/255 )
 	tmp.strokeWidth = 3
-	tmp:setStrokeColor( 243,95, 179 )
+	tmp:setStrokeColor( 243/255 ,95/255, 179/255 )
 
 	-- Game Title
 	local tmp = display.newText( layers.interface, "Corona Candy", 0, 0, gameFont, 24 )
 	tmp.x = centerX
 	tmp.y = h - 30
-	tmp:setTextColor(51,16,95)
+	tmp:setFillColor( 51/255, 16/255, 95/255 )
 	
 
 	-- 3. Build the game board
@@ -188,7 +190,7 @@ function create( )
 		tmp.y = y0 + gemSize
 		tmp.isBase = true
 		tmp.alpha = 0
-		tmp:setFillColor(255,255,255)
+		tmp:setFillColor( 255/255, 255/255, 255/255 )
 	end
 
 	replaceGems()
@@ -302,7 +304,7 @@ createGem = function( group, type )
 
 	-- Graphics 2.0: Filter effects
 	-- 
-	if false then
+	if( shaderEffect > 0 ) then
 
 		display.setDrawMode( "forceRender", true )
 
@@ -317,11 +319,7 @@ createGem = function( group, type )
 			"filter.wobble",		-- 8
 		}
 
-		-- Change this number to change effect
-		-- ranges from 1 to #effects
-		local i = 1
-
-		theGem.fill.effect = effects[i]
+		theGem.fill.effect = effects[shaderEffect]
 
 		-- Reduce wobble size
 		if ( effects[i] == "filter.wobble" ) then
@@ -547,8 +545,8 @@ achievementPopup = function()
 	
 	local back = display.newRoundedRect( group, 0, 0, 200, 60, 12 )
 	back.strokeWidth = 3
-	back:setFillColor( 243, 95, 179 )
-	back:setStrokeColor( 254, 191, 199 ) 
+	back:setFillColor( 243/255, 95/255, 179/255 )
+	back:setStrokeColor( 254/255, 191/255, 199/255 ) 
 	back.x = centerX
 	back.y = centerY
 
