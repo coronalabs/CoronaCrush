@@ -201,6 +201,10 @@ function create( )
 	-- 4. Add badges (Hey, everyone needs a little credit!)
 	--
 	createBadges()
+	
+	-- 5. Clean any matches on game start testForMatches
+	
+	timer.performWithDelay( 800, function() testForMatches( 0 ) end )
 end
 
 -- =======================
